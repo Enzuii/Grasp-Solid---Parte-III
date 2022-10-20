@@ -8,24 +8,27 @@ using System.IO;
 
 namespace Full_GRASP_And_SOLID.Library
 {
-    public enum Destination
+    public class ConsolePrinter : IPrinter
     {
-        Console,
-        File
+        public void PrintRecipe(Recipe recipe)
+        {
+            Console.WriteLine(recipe.GetTextToPrint());
+        }
+
     }
 
-    public class AllInOnePrinter
+    public class FilePrinter : IPrinter
     {
-        public void PrintRecipe(Recipe recipe, Destination destination)
+        public void PrintRecipe(Recipe recipe)
         {
-            if (destination == Destination.Console)
-            {
-                Console.WriteLine(recipe.GetTextToPrint());
-            }
-            else
-            {
-                File.WriteAllText("Recipe.txt", recipe.GetTextToPrint());
-            }
+            File.WriteAllText("Recipe.txt", recipe.GetTextToPrint());
+        }
+    }
+
+    public class PaperPrinter : IPrinter
+    {
+        public void PrintRecipe(Recipe recipe)
+        {
         }
     }
 }
